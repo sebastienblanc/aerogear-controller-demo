@@ -45,12 +45,10 @@ public class ShopCartServiceIT {
     @Inject
     private ShopCartService shopCartService;
 
-    public List<Role> buildRole(String roleName) {
-        List<Role> roles = new ArrayList<Role>();
+    public Role buildRole(String roleName) {
         Role role = new Role(roleName, roleName);
         roleRegistry.newRole(role);
-        roles.add(role);
-        return roles;
+        return role;
     }
 
     @Deployment

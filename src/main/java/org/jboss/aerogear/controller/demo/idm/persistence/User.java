@@ -32,8 +32,8 @@ public class User implements Serializable {
     @Column(name = "password")
     private String value;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    @ManyToOne
+    private Role role;
 
     public User() {
     }
@@ -59,11 +59,11 @@ public class User implements Serializable {
         this.value = value;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Role role) {
+        this.role = role;
     }
 }

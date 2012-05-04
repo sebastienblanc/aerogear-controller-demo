@@ -46,7 +46,7 @@ public class RoleRegistryImpl implements RoleRegistry {
     }
 
     @Override
-    public List<Role> findBy(Object property) {
-        return em.getReference(User.class, property.toString()).getRoles();
+    public Object findBy(Object property) {
+        return em.getReference(User.class, property.toString()).getRole().getId();
     }
 }

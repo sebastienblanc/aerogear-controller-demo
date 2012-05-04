@@ -32,6 +32,12 @@ public class UserLogin implements AuthInfo {
     //TODO must to be fixed
     @Override
     public String getRole() {
-        return "customer";
+        //return "customer";
+        return role;
+    }
+
+    @Override
+    public void setRole(String role) {
+        this.role = role;
     }
 }

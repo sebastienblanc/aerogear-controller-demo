@@ -30,17 +30,6 @@ public class Role implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Role() {
     }
 
