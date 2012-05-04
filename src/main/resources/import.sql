@@ -16,5 +16,5 @@
 --
 
 -- You can use this file to load seed data into the database using SQL statements
-insert into SECURITY_ROLE (id, name) values ('1', 'customer');
 insert into SECURITY_USER (username, password) values ('John', 'Doe');
+insert into SECURITY_ROLE (id, name, user_username) values ('customer', 'customer', 'John');

@@ -4,6 +4,7 @@ import org.jboss.aerogear.controller.demo.idm.persistence.Role;
 import org.jboss.aerogear.controller.demo.idm.persistence.RoleRegistryImpl;
 import org.jboss.aerogear.controller.demo.idm.persistence.User;
 import org.jboss.aerogear.controller.demo.idm.persistence.UserRegistryImpl;
+import org.jboss.aerogear.controller.demo.model.Car;
 import org.jboss.aerogear.controller.demo.util.Resources;
 import org.jboss.aerogear.security.idm.authentication.AuthInfo;
 import org.jboss.aerogear.security.idm.authentication.AuthInfoImpl;
@@ -57,7 +58,7 @@ public class ShopCartServiceIT {
         return ShrinkWrap.create(WebArchive.class)
                 .addClasses(ShopCartService.class, SecurityInterceptor.class,
                         SecurityInterceptorBinding.class, Protected.class,
-                        Resources.class, Role.class, User.class,
+                        Resources.class, Role.class, User.class, Car.class,
                         RoleRegistry.class, RoleRegistryImpl.class,
                         UserRegistry.class, UserRegistryImpl.class,
                         AuthInfo.class, AuthInfoImpl.class,
@@ -76,7 +77,7 @@ public class ShopCartServiceIT {
             user.setRoles(buildRole("admin"));
             userRegistry.newUser(user);
             authenticatorManager.login(getAuthInfo("test", "test", "admin"));
-            shopCartService.getUser(1L);
+            shopCartService.add(new Car("red", "hat"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,7 +90,7 @@ public class ShopCartServiceIT {
             user.setRoles(buildRole("manager"));
             userRegistry.newUser(user);
             authenticatorManager.login(getAuthInfo("test2", "test2", "guest"));
-            shopCartService.getUser(1L);
+            shopCartService.add(new Car("red", "hat"));
         } catch (Exception e) {
             assertTrue(true);
         }
@@ -98,7 +99,7 @@ public class ShopCartServiceIT {
     @Test
     public void shouldThrowExceptionWithoutValidLogin() throws Exception {
         try {
-            shopCartService.getUser(1L);
+            shopCartService.add(new Car("red", "hat"));
             fail("Should throw authorization exception");
         } catch (Exception e) {
             assertTrue(true);

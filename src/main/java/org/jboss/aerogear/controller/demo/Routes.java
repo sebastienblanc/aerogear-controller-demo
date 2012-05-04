@@ -20,5 +20,17 @@ public class Routes extends AbstractRoutingModule {
                 .from("/cars")
                 .on(RequestMethod.POST)
                 .to(Home.class).save(param(Car.class));
+        route()
+                .from("/login")
+                .on(RequestMethod.GET)
+                .to(Login.class).index();
+        route()
+                .from("/welcome")
+                .on(RequestMethod.POST)
+                .to(Login.class).welcome(param(UserLogin.class));
+        route()
+                .from("/shop")
+                .on(RequestMethod.GET)
+                .to(Shop.class).index();
     }
 }
