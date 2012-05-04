@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     JBoss, Home of Professional Open Source
@@ -16,16 +17,19 @@
     limitations under the License.
 
 -->
-<!-- Marker file indicating CDI 1.0 should be enabled -->
-
-<beans xmlns="http://java.sun.com/xml/ns/javaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence version="2.0"
+   xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="
-      http://java.sun.com/xml/ns/javaee 
-      http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
-
-    <interceptors>
-        <class>org.jboss.aerogear.security.idm.authorization.SecurityInterceptor</class>
-    </interceptors>
-
-</beans>
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+   <persistence-unit name="primary">
+      <!-- If you are running in a production environment, add a managed 
+         data source, the example data source is just for proofs of concept! -->
+      <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+      <properties>
+         <!-- Properties for Hibernate -->
+         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+         <property name="hibernate.show_sql" value="false" />
+      </properties>
+   </persistence-unit>
+</persistence>
