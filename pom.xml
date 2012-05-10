@@ -147,6 +147,12 @@
             <version>${deltaspike.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-security-module-impl</artifactId>
+            <version>${deltaspike.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
