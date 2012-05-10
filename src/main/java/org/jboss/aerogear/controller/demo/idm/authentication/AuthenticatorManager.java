@@ -6,6 +6,9 @@ import org.apache.deltaspike.security.api.credential.Credential;
 import org.apache.deltaspike.security.api.credential.LoginCredential;
 import org.apache.deltaspike.security.spi.authentication.BaseAuthenticator;
 import org.jboss.aerogear.controller.demo.idm.fixture.InMemoryUserStorage;
+import org.jboss.aerogear.controller.demo.idm.persistence.UserRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -19,20 +22,26 @@ public class AuthenticatorManager extends BaseAuthenticator {
     @Inject
     private Identity identity;
 
+    @Inject
+    private UserRegistry userRegistry;
+
     private User user;
+
+    private static final Logger log = LoggerFactory.getLogger(AuthenticatorManager.class);
 
     @Override
     public void authenticate() {
-//        String password = InMemoryUserStorage.getPassword(this.loginCredential.getUserId());
-        String password = InMemoryUserStorage.getPassword("test1");
+        Object user = userRegistry.findBy(this.loginCredential.getUserId());
 
-        //if (password != null && password.equals(this.loginCredential.getCredential().getValue())) {
-        if (password != null && password.equals("test")) {
+        log.info("================== User: " + user);
+
+        if (user != null) {
             setStatus(AuthenticationStatus.SUCCESS);
-            //this.user = new User(this.loginCredential.getUserId());
-            this.user = new User("test");
+            this.user = new User(this.loginCredential.getUserId());
             return;
         }
+
+        setStatus(AuthenticationStatus.FAILURE);
     }
 
     @Override
@@ -41,6 +50,8 @@ public class AuthenticatorManager extends BaseAuthenticator {
     }
 
     public void login(String userName, final String password) {
+
+
         this.loginCredential.setUserId(userName);
         //TODO discuss #setSecurityToken
         this.loginCredential.setCredential(new Credential<String>() {
@@ -51,6 +62,7 @@ public class AuthenticatorManager extends BaseAuthenticator {
         });
 
         this.identity.login();
+
     }
 
     public void logout() {
