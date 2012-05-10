@@ -21,6 +21,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@Deprecated
 @Entity
 @Table(name = "SECURITY_USER", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User implements Serializable {

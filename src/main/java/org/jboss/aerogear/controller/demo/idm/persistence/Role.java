@@ -20,6 +20,7 @@ package org.jboss.aerogear.controller.demo.idm.persistence;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Deprecated
 @Entity
 @Table(name = "SECURITY_ROLE", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "name"}))
 public class Role implements Serializable {
