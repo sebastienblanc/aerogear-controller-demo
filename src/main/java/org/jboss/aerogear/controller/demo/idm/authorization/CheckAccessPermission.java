@@ -29,9 +29,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- *
- */
+//TODO replace this with database stuff
+
 @ApplicationScoped
 public class CheckAccessPermission implements AccessDecisionVoter {
     private static final long serialVersionUID = 1331427301357439804L;
