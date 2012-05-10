@@ -28,6 +28,7 @@
         <!-- Define the version of JBoss' Java EE 6 APIs we want to import. Any dependencies from org.jboss.spec will have their
              version defined by this BOM -->
         <javaee6.bom.version>1.0.0.M3</javaee6.bom.version>
+        <deltaspike.version>0.2-incubating</deltaspike.version>
     </properties>
 
     <dependencyManagement>
@@ -129,24 +130,21 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.deltaspike.modules</groupId>
-            <artifactId>deltaspike-security-module-api</artifactId>
-            <version>0.2-incubating</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.deltaspike.modules</groupId>
-            <artifactId>deltaspike-security-module-impl</artifactId>
-            <version>0.2-incubating</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.deltaspike.core</groupId>
             <artifactId>deltaspike-core-api</artifactId>
-            <version>0.2-incubating</version>
+            <version>${deltaspike.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.deltaspike.core</groupId>
             <artifactId>deltaspike-core-impl</artifactId>
-            <version>0.2-incubating</version>
+            <version>${deltaspike.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-security-module-api</artifactId>
+            <version>${deltaspike.version}</version>
         </dependency>
 
     </dependencies>
