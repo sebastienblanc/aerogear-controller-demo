@@ -17,31 +17,30 @@
 
 package org.jboss.aerogear.controller.demo.idm.persistence;
 
-import org.jboss.aerogear.security.idm.persistence.UserRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 @Stateless
-public class UserRegistryImpl implements UserRegistry {
+public class RoleRegistry {
+
+    private static final Logger log = LoggerFactory.getLogger(RoleRegistry.class);
 
     @Inject
     private EntityManager em;
 
-    @Override
-    public void newUser(Object user) {
-        em.persist(user);
+    public void newRole(Object role) {
+        em.persist(role);
     }
 
-    @Override
-    public void edit(Object user) {
-        em.persist(user);
+    public void edit(Object role) {
+        em.persist(role);
     }
 
-    @Override
-    public User findBy(Object property) {
-        return em.find(User.class, property.toString());
+    public Object findBy(Object property) {
+        return em.getReference(User.class, property.toString()).getRole().getId();
     }
-
 }
