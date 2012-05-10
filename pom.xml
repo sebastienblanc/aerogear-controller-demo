@@ -122,17 +122,31 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.aerogear.security</groupId>
-            <artifactId>aerogear-security</artifactId>
-            <version>0.1.4-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-security</artifactId>
             <version>7.1.1.Final</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-security-module-api</artifactId>
+            <version>0.2-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-security-module-impl</artifactId>
+            <version>0.2-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-api</artifactId>
+            <version>0.2-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-impl</artifactId>
+            <version>0.2-incubating</version>
         </dependency>
 
     </dependencies>
