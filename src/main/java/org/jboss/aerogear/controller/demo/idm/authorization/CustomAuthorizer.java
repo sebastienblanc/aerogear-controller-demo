@@ -20,6 +20,8 @@ package org.jboss.aerogear.controller.demo.idm.authorization;
 
 import org.apache.deltaspike.security.api.authorization.annotation.Secures;
 import org.jboss.aerogear.controller.demo.idm.annotation.Protected;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.interceptor.InvocationContext;
@@ -27,10 +29,14 @@ import javax.interceptor.InvocationContext;
 @ApplicationScoped
 @SuppressWarnings("UnusedDeclaration")
 public class CustomAuthorizer {
+
+    private static final Logger log = LoggerFactory.getLogger(CustomAuthorizer.class);
+
     @Secures
     @Protected
     @SuppressWarnings("UnusedDeclaration")
     public boolean doSecuredCheck(InvocationContext invocationContext) throws Exception {
+        log.info("============================== CustomAuthorizer ==============================");
         return !invocationContext.getMethod().getName().contains("Blocked");
     }
 }

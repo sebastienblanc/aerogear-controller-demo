@@ -58,7 +58,7 @@ public class ShopCartServiceIT {
         return ShrinkWrap.create(WebArchive.class)
                 //.addAsLibraries(libs)
                 .addAsLibraries(ArchiveUtils.getDeltaSpikeCoreAndSecurityArchive())
-                .addClasses(ShopCartService.class, Resources.class,
+                .addClasses(ShopCartService.class, Resources.class, CustomAuthorizer.class,
                         SecurityInterceptor.class, AuthenticatorManager.class,
                         Role.class, User.class, Car.class, InMemoryUserStorage.class,
                         Protected.class, CustomAuthorizer.class,
