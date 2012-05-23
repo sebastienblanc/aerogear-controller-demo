@@ -4,6 +4,8 @@ import org.apache.deltaspike.security.impl.authorization.SecurityInterceptor;
 import org.jboss.aerogear.controller.demo.idm.annotation.CustomSecurityBinding;
 import org.jboss.aerogear.controller.demo.idm.authentication.AuthenticatorManager;
 import org.jboss.aerogear.controller.demo.idm.authorization.CustomAuthorizer;
+import org.jboss.aerogear.controller.demo.idm.authorization.RoleManager;
+import org.jboss.aerogear.controller.demo.idm.authorization.RoleManagerImpl;
 import org.jboss.aerogear.controller.demo.idm.persistence.Role;
 import org.jboss.aerogear.controller.demo.idm.persistence.RoleRegistry;
 import org.jboss.aerogear.controller.demo.idm.persistence.User;
@@ -59,7 +61,7 @@ public class ShopCartServiceIT {
                 .addAsLibraries(ArchiveUtils.getDeltaSpikeCoreAndSecurityArchive())
                 .addClasses(ShopCartService.class, Resources.class, CustomAuthorizer.class,
                         SecurityInterceptor.class, AuthenticatorManager.class,
-                        Role.class, User.class, Car.class,
+                        Role.class, User.class, Car.class, RoleManager.class, RoleManagerImpl.class,
                         CustomSecurityBinding.class, CustomAuthorizer.class,
                         RoleRegistry.class, UserRegistry.class)
                 .addAsWebInfResource(ArchiveUtils.getBeansXml(), "beans.xml")
@@ -71,7 +73,7 @@ public class ShopCartServiceIT {
     public void shouldAccessProtectedResourceWithValidLogin() throws Exception {
         try {
             User user = new User("test", "test");
-            user.setRoles(buildRole("admin"));
+            user.setRoles(buildRole("customer"));
             userRegistry.newUser(user);
             authenticatorManager.login("test", "test");
             shopCartService.add(new Car("red", "camaro"));

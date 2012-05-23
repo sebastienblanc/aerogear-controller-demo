@@ -15,32 +15,31 @@
  * limitations under the License.
  */
 
-package org.jboss.aerogear.controller.demo.idm.persistence;
+package org.jboss.aerogear.controller.demo.idm.authorization;
 
+import org.jboss.aerogear.controller.demo.idm.persistence.RoleRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
-@Stateless
-public class RoleRegistry {
+@SessionScoped
+public class RoleManagerImpl implements RoleManager {
 
-    private static final Logger log = LoggerFactory.getLogger(RoleRegistry.class);
+    private static final Logger log = LoggerFactory.getLogger(RoleManagerImpl.class);
+
 
     @Inject
-    private EntityManager em;
+    private RoleRegistry roleRegistry;
 
-    public void newRole(Object role) {
-        em.persist(role);
-    }
+    public boolean hasRole(String username) {
+        String role = roleRegistry.findBy(username).toString();
 
-    public void edit(Object role) {
-        em.persist(role);
-    }
-
-    public String findBy(Object property) {
-        return em.getReference(User.class, property.toString()).getRole().getId();
+        if("customer".equals(role)){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

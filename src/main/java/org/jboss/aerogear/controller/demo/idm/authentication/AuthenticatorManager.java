@@ -5,8 +5,10 @@ import org.apache.deltaspike.security.api.User;
 import org.apache.deltaspike.security.api.credential.Credential;
 import org.apache.deltaspike.security.api.credential.LoginCredential;
 import org.apache.deltaspike.security.spi.authentication.BaseAuthenticator;
+import org.jboss.aerogear.controller.demo.idm.authorization.RoleManager;
 import org.jboss.aerogear.controller.demo.idm.persistence.UserRegistry;
 import org.jboss.aerogear.controller.demo.idm.util.MessageDigestUtil;
+import org.jboss.aerogear.controller.demo.model.UserLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +26,9 @@ public class AuthenticatorManager extends BaseAuthenticator {
 
     @Inject
     private UserRegistry userRegistry;
+
+    @Inject
+    private RoleManager roleManager;
 
     private User user;
 
@@ -61,6 +66,9 @@ public class AuthenticatorManager extends BaseAuthenticator {
         this.identity.login();
     }
 
+    public boolean isCustomer(User user) {
+        return roleManager.hasRole(user.getId());
+    }
 
     public void logout() {
         this.identity.logout();

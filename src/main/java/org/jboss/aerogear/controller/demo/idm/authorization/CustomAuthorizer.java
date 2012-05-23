@@ -21,6 +21,7 @@ package org.jboss.aerogear.controller.demo.idm.authorization;
 import org.apache.deltaspike.security.api.Identity;
 import org.apache.deltaspike.security.api.authorization.annotation.Secures;
 import org.jboss.aerogear.controller.demo.idm.annotation.CustomSecurityBinding;
+import org.jboss.aerogear.controller.demo.idm.authentication.AuthenticatorManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,12 +38,19 @@ public class CustomAuthorizer {
     @Inject
     private Identity identity;
 
+    @Inject
+    private AuthenticatorManager authenticatorManager;
+
     @Secures
     @CustomSecurityBinding
     public boolean doSecuredCheck(InvocationContext invocationContext) throws Exception {
         log.info("============================== CustomAuthorizer ==============================");
-        log.info("============================== CustomAuthorizer " + invocationContext.getMethod().getName() + " ==============================");
-        if (this.identity.isLoggedIn()) {
+        log.info("============================== CustomAuthorizer "
+                + invocationContext.getMethod().getName() + " ==============================");
+        if (this.identity.isLoggedIn() && authenticatorManager.isCustomer(this.identity.getUser())) {
+            log.info("============================== CustomAuthorizer "
+                    + authenticatorManager.isCustomer(this.identity.getUser())
+                    + " ==============================");
             return true;
         } else {
             throw new Exception("Authorization check failed");

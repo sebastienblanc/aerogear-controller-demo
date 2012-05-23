@@ -15,32 +15,10 @@
  * limitations under the License.
  */
 
-package org.jboss.aerogear.controller.demo.idm.persistence;
+package org.jboss.aerogear.controller.demo.idm.authorization;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.Serializable;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
-@Stateless
-public class RoleRegistry {
-
-    private static final Logger log = LoggerFactory.getLogger(RoleRegistry.class);
-
-    @Inject
-    private EntityManager em;
-
-    public void newRole(Object role) {
-        em.persist(role);
-    }
-
-    public void edit(Object role) {
-        em.persist(role);
-    }
-
-    public String findBy(Object property) {
-        return em.getReference(User.class, property.toString()).getRole().getId();
-    }
+public interface RoleManager extends Serializable {
+    public boolean hasRole(String username);
 }
