@@ -6,6 +6,7 @@ import org.apache.deltaspike.security.api.credential.Credential;
 import org.apache.deltaspike.security.api.credential.LoginCredential;
 import org.apache.deltaspike.security.spi.authentication.BaseAuthenticator;
 import org.jboss.aerogear.controller.demo.idm.persistence.UserRegistry;
+import org.jboss.aerogear.controller.demo.idm.util.MessageDigestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +31,10 @@ public class AuthenticatorManager extends BaseAuthenticator {
 
     @Override
     public void authenticate() {
-        Object user = userRegistry.findBy(this.loginCredential.getUserId());
 
-        log.info("================== User: " + user);
+        org.jboss.aerogear.controller.demo.idm.persistence.User userEntity = userRegistry.findBy(this.loginCredential.getUserId());
 
-        if (user != null) {
+        if (userEntity != null) {
             setStatus(AuthenticationStatus.SUCCESS);
             this.user = new User(this.loginCredential.getUserId());
             return;
@@ -50,21 +50,17 @@ public class AuthenticatorManager extends BaseAuthenticator {
 
     public void login(String userName, final String password) {
 
-        Object user = userRegistry.findBy(userName);
+        this.loginCredential.setUserId(userName);
+        this.loginCredential.setCredential(new Credential<String>() {
+            @Override
+            public String getValue() {
+                return MessageDigestUtil.createDigestPassword(password);
+            }
+        });
 
-        if (user != null) {
-            this.loginCredential.setUserId(userName);
-            //TODO discuss #setSecurityToken
-            this.loginCredential.setCredential(new Credential<String>() {
-                @Override
-                public String getValue() {
-                    return password;
-                }
-            });
-
-            this.identity.login();
-        }
+        this.identity.login();
     }
+
 
     public void logout() {
         this.identity.logout();

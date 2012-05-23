@@ -1,5 +1,7 @@
 package org.jboss.aerogear.controller.demo.model;
 
+import org.jboss.aerogear.controller.demo.idm.util.MessageDigestUtil;
+
 public class UserLogin {
 
     private String username;
@@ -8,7 +10,7 @@ public class UserLogin {
 
     public UserLogin(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.password = MessageDigestUtil.createDigestPassword(password);
     }
 
     public UserLogin(String username, String password, String role) {
