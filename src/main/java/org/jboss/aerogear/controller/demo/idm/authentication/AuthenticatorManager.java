@@ -5,7 +5,6 @@ import org.apache.deltaspike.security.api.User;
 import org.apache.deltaspike.security.api.credential.Credential;
 import org.apache.deltaspike.security.api.credential.LoginCredential;
 import org.apache.deltaspike.security.spi.authentication.BaseAuthenticator;
-import org.jboss.aerogear.controller.demo.idm.fixture.InMemoryUserStorage;
 import org.jboss.aerogear.controller.demo.idm.persistence.UserRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,18 +50,20 @@ public class AuthenticatorManager extends BaseAuthenticator {
 
     public void login(String userName, final String password) {
 
+        Object user = userRegistry.findBy(userName);
 
-        this.loginCredential.setUserId(userName);
-        //TODO discuss #setSecurityToken
-        this.loginCredential.setCredential(new Credential<String>() {
-            @Override
-            public String getValue() {
-                return password;
-            }
-        });
+        if (user != null) {
+            this.loginCredential.setUserId(userName);
+            //TODO discuss #setSecurityToken
+            this.loginCredential.setCredential(new Credential<String>() {
+                @Override
+                public String getValue() {
+                    return password;
+                }
+            });
 
-        this.identity.login();
-
+            this.identity.login();
+        }
     }
 
     public void logout() {

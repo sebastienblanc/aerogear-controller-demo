@@ -1,5 +1,6 @@
 package org.jboss.aerogear.controller.demo;
 
+import org.jboss.aerogear.controller.demo.idm.authentication.AuthenticatorManager;
 import org.jboss.aerogear.controller.demo.model.UserLogin;
 
 import javax.ejb.Stateless;
@@ -9,8 +10,7 @@ import javax.inject.Inject;
 public class Login {
 
     @Inject
-    //TODO replace with DS
-    //private AuthenticatorManager authenticatorManager;
+    private AuthenticatorManager authenticatorManager;
 
     public void index() {
         System.out.println("hello from security");
@@ -18,8 +18,7 @@ public class Login {
 
     public UserLogin welcome(UserLogin userLogin) {
 
-        //authenticatorManager.login(userLogin);
-        //TODO authentication exception should redirect to some error page
+        authenticatorManager.login(userLogin.getUsername(), userLogin.getPassword());
         return userLogin;
     }
 

@@ -18,12 +18,14 @@
  */
 package org.jboss.aerogear.controller.demo.idm.authorization;
 
+import org.apache.deltaspike.security.api.Identity;
 import org.apache.deltaspike.security.api.authorization.annotation.Secures;
-import org.jboss.aerogear.controller.demo.idm.annotation.Protected;
+import org.jboss.aerogear.controller.demo.idm.annotation.CustomSecurityBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.interceptor.InvocationContext;
 
 @ApplicationScoped
@@ -32,11 +34,18 @@ public class CustomAuthorizer {
 
     private static final Logger log = LoggerFactory.getLogger(CustomAuthorizer.class);
 
+    @Inject
+    private Identity identity;
+
     @Secures
-    @Protected
-    @SuppressWarnings("UnusedDeclaration")
+    @CustomSecurityBinding
     public boolean doSecuredCheck(InvocationContext invocationContext) throws Exception {
         log.info("============================== CustomAuthorizer ==============================");
-        return !invocationContext.getMethod().getName().contains("Blocked");
+        log.info("============================== CustomAuthorizer " + invocationContext.getMethod().getName() + " ==============================");
+        if (this.identity.isLoggedIn()) {
+            return true;
+        } else {
+            throw new Exception("Authorization check failed");
+        }
     }
 }

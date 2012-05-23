@@ -11,5 +11,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 @SecurityBindingType
-public @interface Protected {
+public @interface CustomSecurityBinding {
+
 }

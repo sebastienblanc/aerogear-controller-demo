@@ -1,9 +1,9 @@
 package org.jboss.aerogear.controller.demo.service;
 
 import org.apache.deltaspike.security.impl.authorization.SecurityInterceptor;
-import org.jboss.aerogear.controller.demo.idm.annotation.Protected;
+import org.jboss.aerogear.controller.demo.idm.annotation.CustomSecurityBinding;
+import org.jboss.aerogear.controller.demo.idm.authentication.AuthenticatorManager;
 import org.jboss.aerogear.controller.demo.idm.authorization.CustomAuthorizer;
-import org.jboss.aerogear.controller.demo.idm.fixture.InMemoryUserStorage;
 import org.jboss.aerogear.controller.demo.idm.persistence.Role;
 import org.jboss.aerogear.controller.demo.idm.persistence.RoleRegistry;
 import org.jboss.aerogear.controller.demo.idm.persistence.User;
@@ -11,7 +11,6 @@ import org.jboss.aerogear.controller.demo.idm.persistence.UserRegistry;
 import org.jboss.aerogear.controller.demo.model.Car;
 import org.jboss.aerogear.controller.demo.util.ArchiveUtils;
 import org.jboss.aerogear.controller.demo.util.Resources;
-import org.jboss.aerogear.controller.demo.idm.authentication.AuthenticatorManager;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -60,8 +59,8 @@ public class ShopCartServiceIT {
                 .addAsLibraries(ArchiveUtils.getDeltaSpikeCoreAndSecurityArchive())
                 .addClasses(ShopCartService.class, Resources.class, CustomAuthorizer.class,
                         SecurityInterceptor.class, AuthenticatorManager.class,
-                        Role.class, User.class, Car.class, InMemoryUserStorage.class,
-                        Protected.class, CustomAuthorizer.class,
+                        Role.class, User.class, Car.class,
+                        CustomSecurityBinding.class, CustomAuthorizer.class,
                         RoleRegistry.class, UserRegistry.class)
                 .addAsWebInfResource(ArchiveUtils.getBeansXml(), "beans.xml")
                 .addAsResource("persistence.xml", "META-INF/persistence.xml");
@@ -75,9 +74,9 @@ public class ShopCartServiceIT {
             user.setRoles(buildRole("admin"));
             userRegistry.newUser(user);
             authenticatorManager.login("test", "test");
-            shopCartService.add(new Car("red", "hat"));
+            shopCartService.add(new Car("red", "camaro"));
         } catch (Exception e) {
-            e.printStackTrace();
+            fail("Request failed");
         }
     }
 
@@ -88,8 +87,8 @@ public class ShopCartServiceIT {
             user.setRoles(buildRole("manager"));
             userRegistry.newUser(user);
             //TODO must be replaced
-            authenticatorManager.login("test", "test");
-            shopCartService.add(new Car("red", "hat"));
+            authenticatorManager.login("john", "doe");
+            shopCartService.add(new Car("chevelle", "ss396"));
             fail("Should throw authorization exception");
         } catch (Exception e) {
             assertTrue(true);
@@ -99,7 +98,7 @@ public class ShopCartServiceIT {
     @Test
     public void shouldThrowExceptionWithoutValidLogin() throws Exception {
         try {
-            shopCartService.add(new Car("red", "hat"));
+            shopCartService.add(new Car("red", "camaro"));
             fail("Should throw authorization exception");
         } catch (Exception e) {
             assertTrue(true);

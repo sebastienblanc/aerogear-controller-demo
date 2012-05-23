@@ -17,7 +17,7 @@ public class UserLogin {
         this.role = role;
     }
 
-    public Object getPassword() {
+    public String getPassword() {
         return password;
     }
 

@@ -13,7 +13,7 @@ public class Shop {
     private ShopCartService shopCartService;
 
     //TODO replace with DS
-    //@Protected(role = "customer")
+    //@CustomSecurityBinding(role = "customer")
     public void index() {
         System.out.println("hello from shop");
     }
