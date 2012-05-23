@@ -28,6 +28,7 @@ import javax.inject.Inject;
 public class RoleManagerImpl implements RoleManager {
 
     private static final Logger log = LoggerFactory.getLogger(RoleManagerImpl.class);
+    public static final String CUSTOMER = "customer";
 
 
     @Inject
@@ -36,7 +37,7 @@ public class RoleManagerImpl implements RoleManager {
     public boolean hasRole(String username) {
         String role = roleRegistry.findBy(username).toString();
 
-        if("customer".equals(role)){
+        if(CUSTOMER.equals(role)){
             return true;
         } else {
             return false;

@@ -8,31 +8,24 @@ Has some code/ideas extracted from seam-security, DeltaSpike & TorqueBox.
 
 ## References 
 
-* https://github.com/abstractj/aerogear-security/tree/master
 * hhttps://github.com/abstractj/aerogear-controller
 * https://cwiki.apache.org/confluence/display/DeltaSpike/Security+Module+Drafts (part 3/4)
 
 # Usage
 
-1. Download and install aerogear-security
-
-	git clone https://github.com/abstractj/aerogear-security.git
-	git checkout master
-	mvn clean install
-	
-2. Download and install aerogear-controller:
+1. Download and install aerogear-controller:
 	git clone https://@github.com/abstractj/aerogear-security.git 
 	git checkout master
 	cd aerogear-controller/aerogear-controller && mvn clean install
 	
-3. Deploy aerogear-controller demo
+2. Deploy aerogear-controller demo
 	cd aerogear-controller/aerogear-controller-demo && mvn clean package
 	cp target/aerogear-controller-demo.war $JBOSS_HOME/standalone/deployments/
 	
-4. Start JBoss
+3. Start JBoss
 	$JBOSS_HOME/bin/standalone.sh
 	
-5. Test it!
+4. Test it!
 	Just open your browser at http://localhost:8080/aerogear-controller-demo/login
 	Enter username: John password: Doe
 	Yay, you're authenticated!
