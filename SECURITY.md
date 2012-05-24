@@ -16,6 +16,7 @@ Has some code/ideas extracted from seam-security, DeltaSpike & TorqueBox.
 1. Download and install aerogear-controller:
 	git clone https://@github.com/abstractj/aerogear-security.git 
 	git checkout master
+	cd aerogear-controller/aerogear-haml && mvn clean install
 	cd aerogear-controller/aerogear-controller && mvn clean install
 	
 2. Deploy aerogear-controller demo
