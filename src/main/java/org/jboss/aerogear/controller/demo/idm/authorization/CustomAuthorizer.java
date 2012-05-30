@@ -53,7 +53,7 @@ public class CustomAuthorizer {
                     + " ==============================");
             return true;
         } else {
-            throw new Exception("Authorization check failed");
+            return false;
         }
     }
 }
