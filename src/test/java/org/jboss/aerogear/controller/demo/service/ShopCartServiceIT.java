@@ -34,7 +34,6 @@ public class ShopCartServiceIT {
     @Inject
     private RoleRegistry roleRegistry;
 
-    //TODO must be replaced
     @Inject
     private AuthenticatorManager authenticatorManager;
 
@@ -50,14 +49,7 @@ public class ShopCartServiceIT {
     @Deployment
     public static WebArchive createDeployment() {
 
-        //TODO figure out how to fix it
-        /*File[] libs = DependencyResolvers.use(MavenDependencyResolver.class)
-                .loadEffectivePom("pom.xml")
-                .artifacts("org.apache.deltaspike.core")
-                .resolveAsFiles();*/
-
         return ShrinkWrap.create(WebArchive.class)
-                //.addAsLibraries(libs)
                 .addAsLibraries(ArchiveUtils.getDeltaSpikeCoreAndSecurityArchive())
                 .addClasses(ShopCartService.class, Resources.class, CustomAuthorizer.class,
                         SecurityInterceptor.class, AuthenticatorManager.class,

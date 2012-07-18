@@ -30,7 +30,6 @@ public class ArchiveUtils
 {
     public static JavaArchive[] getDeltaSpikeCoreAndSecurityArchive()
     {
-        //X TODO remove this workaround
         boolean isOwbAvailable = ClassUtils.tryToLoadClassForName("org.apache.webbeans.spi.ContainerLifecycle") != null;
 
         String[] excludedFiles;
