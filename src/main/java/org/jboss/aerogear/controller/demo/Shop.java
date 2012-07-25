@@ -3,13 +3,10 @@ package org.jboss.aerogear.controller.demo;
 import org.jboss.aerogear.controller.demo.model.Car;
 import org.jboss.aerogear.controller.demo.service.ShopCartService;
 
-import javax.ejb.Stateful;
-import javax.inject.Inject;
-
-@Stateful
+//@Stateful
 public class Shop {
 
-    @Inject
+    //@Inject
     private ShopCartService shopCartService;
 
     //TODO replace with DS

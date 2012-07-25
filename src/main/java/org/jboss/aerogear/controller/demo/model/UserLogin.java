@@ -1,6 +1,6 @@
 package org.jboss.aerogear.controller.demo.model;
 
-import org.jboss.aerogear.controller.demo.idm.util.MessageDigestUtil;
+import org.jboss.aerogear.security.idm.util.MessageDigestUtil;
 
 public class UserLogin {
 

@@ -104,7 +104,7 @@
         <dependency>
             <groupId>org.jboss.aerogear</groupId>
             <artifactId>aerogear-controller</artifactId>
-            <version>1.0.0.Alpha</version>
+            <version>1.0.0.Alpha1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
@@ -117,35 +117,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-security</artifactId>
-            <version>7.1.1.Final</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.deltaspike.core</groupId>
-            <artifactId>deltaspike-core-api</artifactId>
-            <version>${deltaspike.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.deltaspike.core</groupId>
-            <artifactId>deltaspike-core-impl</artifactId>
-            <version>${deltaspike.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.deltaspike.modules</groupId>
-            <artifactId>deltaspike-security-module-api</artifactId>
-            <version>${deltaspike.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.deltaspike.modules</groupId>
-            <artifactId>deltaspike-security-module-impl</artifactId>
-            <version>${deltaspike.version}</version>
+            <groupId>org.jboss.aerogear</groupId>
+            <artifactId>aerogear-security</artifactId>
+            <version>1.0.0.Alpha-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
