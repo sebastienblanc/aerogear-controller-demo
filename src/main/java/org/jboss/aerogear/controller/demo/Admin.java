@@ -16,8 +16,6 @@
  */
 package org.jboss.aerogear.controller.demo;
 
-import org.jboss.aerogear.controller.demo.security.AerogearUserManager;
-import org.jboss.aerogear.controller.demo.util.Converter;
 import org.jboss.aerogear.security.auth.AuthenticationManager;
 import org.jboss.aerogear.security.authz.IdentityManagement;
 import org.jboss.aerogear.security.model.AeroGearUser;
@@ -38,27 +36,23 @@ public class Admin {
     @Inject
     private AuthenticationManager authenticationManager;
 
-    @Inject
-    private AerogearUserManager aerogearUserManager;
-
-
     public List index() {
-        return aerogearUserManager.getAllSimpleUsers();
+        return configuration.findAllByRole("simple");
     }
 
     public List register(AeroGearUser user){
         configuration.create(user);
         configuration.grant(DEFAULT_ROLE).to(user);
         authenticationManager.login(user);
-        return aerogearUserManager.getAllSimpleUsers();
+        return configuration.findAllByRole("simple");
     }
 
-    public List remove(AeroGearUser id){
-        aerogearUserManager.removeUser(id.getId());
-        return aerogearUserManager.getAllSimpleUsers();
+    public List remove(AeroGearUser aeroGearUser) {
+        configuration.remove(aeroGearUser);
+        return configuration.findAllByRole("simple");
     }
 
     public AeroGearUser show(String id){
-       return Converter.convertToAerogearUser(aerogearUserManager.showUser(id));
+       return configuration.get(id);
     }
 }
