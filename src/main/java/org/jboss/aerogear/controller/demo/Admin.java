@@ -17,11 +17,15 @@
 package org.jboss.aerogear.controller.demo;
 
 import org.jboss.aerogear.security.auth.AuthenticationManager;
+import org.jboss.aerogear.security.auth.LoggedUser;
 import org.jboss.aerogear.security.authz.IdentityManagement;
 import org.jboss.aerogear.security.model.AeroGearUser;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Stateless
@@ -36,22 +40,45 @@ public class Admin {
     @Inject
     private AuthenticationManager authenticationManager;
 
+    @Inject
+    @LoggedUser
+    private Instance<String> loggedInUserName;
+
     public List index() {
-        return configuration.findAllByRole("simple");
+        return listUsers();
     }
 
     public List register(AeroGearUser user){
         configuration.create(user);
         configuration.grant(DEFAULT_ROLE).to(user);
-        return configuration.findAllByRole("simple");
+        List userList = listUsers();
+        return userList;
     }
 
     public List remove(AeroGearUser aeroGearUser) {
         configuration.remove(aeroGearUser);
-        return configuration.findAllByRole("simple");
+        return listUsers();
     }
 
     public AeroGearUser show(String id){
-       return configuration.get(id);
+        return configuration.get(id);
+    }
+
+    /**
+     * List all the registered users excepted the logged in user
+     *
+     */
+    private List listUsers() {
+        List users = configuration.findAllByRole("simple");
+        AeroGearUser loggedInUser = configuration.get(loggedInUserName.get());
+        List filteredList = new ArrayList();
+        Iterator iterator = users.iterator();
+        while(iterator.hasNext()){
+            AeroGearUser current = (AeroGearUser)iterator.next();
+            if(!current.getUsername().equals(loggedInUser.getUsername())){
+                filteredList.add(current);
+            }
+        }
+        return filteredList;
     }
 }
