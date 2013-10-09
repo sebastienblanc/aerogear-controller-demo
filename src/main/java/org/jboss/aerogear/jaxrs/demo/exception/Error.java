@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.jboss.aerogear.controller.demo;
+package org.jboss.aerogear.jaxrs.demo.exception;
 
 import org.jboss.aerogear.controller.router.error.ErrorResponse;
 import org.jboss.aerogear.controller.router.error.JsonErrorResponse;

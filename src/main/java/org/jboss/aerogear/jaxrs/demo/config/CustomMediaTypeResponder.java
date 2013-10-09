@@ -1,6 +1,6 @@
-package org.jboss.aerogear.controller.demo.config;
+package org.jboss.aerogear.jaxrs.demo.config;
 
-import org.jboss.aerogear.controller.demo.rest.ResponseHeaders;
+import org.jboss.aerogear.jaxrs.demo.rest.ResponseHeaders;
 import org.jboss.aerogear.controller.router.MediaType;
 import org.jboss.aerogear.controller.router.RouteContext;
 import org.jboss.aerogear.controller.router.rest.JsonResponder;

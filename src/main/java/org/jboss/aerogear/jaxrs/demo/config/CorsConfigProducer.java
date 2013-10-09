@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.jboss.aerogear.controller.demo.config;
+package org.jboss.aerogear.jaxrs.demo.config;
 
 import org.jboss.aerogear.controller.router.decorators.cors.CorsConfig;
 import org.jboss.aerogear.controller.router.decorators.cors.CorsConfiguration;

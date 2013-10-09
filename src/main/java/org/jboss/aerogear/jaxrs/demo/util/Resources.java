@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.aerogear.controller.demo.util;
+package org.jboss.aerogear.jaxrs.demo.util;
 
 import org.picketlink.annotations.PicketLink;
 

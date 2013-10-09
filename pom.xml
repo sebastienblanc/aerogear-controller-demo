@@ -21,7 +21,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.aerogear</groupId>
-    <artifactId>aerogear-controller-demo</artifactId>
+    <artifactId>aerogear-jaxrs-demo</artifactId>
     <version>1.2.1</version>
     <packaging>war</packaging>
     <name>AeroGear Controller Demo</name>
@@ -57,7 +57,7 @@
         <aerogear.controller.version>1.0.1</aerogear.controller.version>
         <aerogear.otp.version>1.0.0</aerogear.otp.version>
         <aerogear.security.version>1.2.1</aerogear.security.version>
-        <aerogear.security.picketlink.version>1.2.1</aerogear.security.picketlink.version>
+        <aerogear.security.picketlink.version>1.2.2</aerogear.security.picketlink.version>
         <aerogear.security.hawk.version>0.1.0</aerogear.security.hawk.version>
 
     </properties>
@@ -178,6 +178,13 @@
 
         <!-- Import the JAX-RS API, we use provided scope as the API is included
             in JBoss AS 7 -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.ws.rs</groupId>
+            <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
             <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>

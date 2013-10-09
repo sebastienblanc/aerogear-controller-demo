@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.jboss.aerogear.controller.demo.hawk;
+package org.jboss.aerogear.jaxrs.demo.hawk;
 
 import com.wealdtech.hawk.HawkCredentials;
 import org.jboss.aerogear.security.hawk.auth.HawkCredentialProvider;

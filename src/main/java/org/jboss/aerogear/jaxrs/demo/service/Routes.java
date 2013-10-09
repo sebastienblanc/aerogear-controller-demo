@@ -14,29 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.aerogear.controller.demo;
+package org.jboss.aerogear.jaxrs.demo.service;
 
-import org.jboss.aerogear.controller.demo.config.CustomMediaTypeResponder;
-import org.jboss.aerogear.controller.demo.model.Car;
 import org.jboss.aerogear.controller.router.AbstractRoutingModule;
 import org.jboss.aerogear.controller.router.MediaType;
 import org.jboss.aerogear.controller.router.RequestMethod;
 import org.jboss.aerogear.controller.router.parameter.MissingRequestParameterException;
 import org.jboss.aerogear.controller.router.rest.pagination.PaginationInfo;
 import org.jboss.aerogear.controller.router.rest.pagination.PaginationRequestException;
+import org.jboss.aerogear.jaxrs.demo.exception.CarNotFoundException;
+import org.jboss.aerogear.jaxrs.demo.exception.Error;
+import org.jboss.aerogear.jaxrs.demo.model.Car;
+import org.jboss.aerogear.jaxrs.demo.persistence.Cars;
 import org.jboss.aerogear.security.exception.AeroGearSecurityException;
 import org.picketlink.authentication.UnexpectedCredentialException;
-import org.picketlink.idm.model.sample.User;
 
-import static org.jboss.aerogear.controller.demo.config.CustomMediaTypeResponder.CUSTOM_MEDIA_TYPE;
+import static org.jboss.aerogear.jaxrs.demo.config.CustomMediaTypeResponder.CUSTOM_MEDIA_TYPE;
 
 /**
  * Routes are the core of aerogear-controller–demo.
- * It's where we bind the the application business controller {@link Home}
+ * It's where we bind the the application business controller
  * to the URL it responds.<br>
  * All the configuration is done with a type safe DSL.
- *
- * @see Home
  */
 
 public class Routes extends AbstractRoutingModule {
@@ -50,7 +49,7 @@ public class Routes extends AbstractRoutingModule {
         route()
                 .on(CarNotFoundException.class)
                 .produces(JSON)
-                .to(Error.class).respondWithErrorStatus(param(CarNotFoundException.class));
+                .to(org.jboss.aerogear.jaxrs.demo.exception.Error.class).respondWithErrorStatus(param(CarNotFoundException.class));
         route()
                 .on(PaginationRequestException.class)
                 .produces(JSON)
@@ -76,16 +75,7 @@ public class Routes extends AbstractRoutingModule {
                 .on(Exception.class)
                 .produces(JSP, JSON)
                 .to(Error.class).index(param(Exception.class));
-        route()
-                .from("/")
-                .on(RequestMethod.GET)
-                .to(Home.class).index();
-        route()
-                .from("/delorean").roles("admin")
-                .on(RequestMethod.GET)
-                .produces(JSON, JSP)
-                .consumes(JSON, JSP)
-                .to(Home.class).anotherPage();
+
         route()
                 .from("/cars")
                 .on(RequestMethod.POST)
@@ -117,7 +107,44 @@ public class Routes extends AbstractRoutingModule {
                 .on(RequestMethod.OPTIONS, RequestMethod.GET)
                 .produces(JSON)
                 .to(Cars.class).autobots();
+
         route()
+                .from("/throwException")
+                .on(RequestMethod.GET)
+                .produces(JSP, JSON)
+                .to(Error.class).throwException();
+
+        //Register routes
+
+
+        /*route()
+                .from("/register")
+                .on(RequestMethod.GET)
+                .to(Register.class).index();
+        route()
+                .from("/register")
+                .on(RequestMethod.POST)
+                .produces(JSON, JSP)
+                .consumes(JSON, JSP)
+                .to(Register.class).register(param(User.class), param("password"));    */
+
+        //OTP routes
+
+        /*route()
+                .from("/otp")
+                .on(RequestMethod.POST)
+                .produces(JSON, JSP)
+                .consumes(JSON, JSP)
+                .to(Otp.class).otp(param(User.class), param("otp"));
+        route()
+                .from("/auth/otp/secret")
+                .on(RequestMethod.GET)
+                .produces(JSON)
+                .to(Otp.class).secret(); */
+
+        //Login routes
+
+        /*route()
                 .from("/login")
                 .on(RequestMethod.GET)
                 .produces(JSP, CustomMediaTypeResponder.CUSTOM_MEDIA_TYPE)
@@ -128,38 +155,46 @@ public class Routes extends AbstractRoutingModule {
                 .produces(JSP, CustomMediaTypeResponder.CUSTOM_MEDIA_TYPE)
                 .consumes(JSP, CustomMediaTypeResponder.CUSTOM_MEDIA_TYPE)
                 .to(Login.class).login(param(User.class), param("password"));
-        route()
-                .from("/otp")
-                .on(RequestMethod.POST)
-                .produces(JSON, JSP)
-                .consumes(JSON, JSP)
-                .to(Otp.class).otp(param(User.class), param("otp"));
-        route()
-                .from("/auth/otp/secret")
-                .on(RequestMethod.GET)
-                .produces(JSON)
-                .to(Otp.class).secret();
+
         route()
                 .from("/logout")
                 .on(RequestMethod.GET, RequestMethod.POST)
                 .produces(JSON, JSP)
                 .consumes(JSON, JSP)
-                .to(Login.class).logout();
-        route()
-                .from("/register")
+                .to(Login.class).logout();      */
+
+        //Html routes
+
+        /*route()
+                .from("/html")
                 .on(RequestMethod.GET)
-                .to(Register.class).index();
+                .produces(HTML)
+                .to(Html.class).index();*/
+
+        //Home routes
+
+        /*route()
+                .from("/")
+                .on(RequestMethod.GET)
+                .to(Home.class).index();
         route()
-                .from("/register")
-                .on(RequestMethod.POST)
+                .from("/delorean").roles("admin")
+                .on(RequestMethod.GET)
                 .produces(JSON, JSP)
                 .consumes(JSON, JSP)
-                .to(Register.class).register(param(User.class), param("password"));
-        route()
-                .from("/throwException")
+                .to(Home.class).anotherPage();*/
+
+        //Admin routes
+
+        /*route()
+                .from("/show/{id}").roles("admin")
                 .on(RequestMethod.GET)
-                .produces(JSP, JSON)
-                .to(Error.class).throwException();
+                .to(Admin.class).show(param("id"));
+        route()
+                .from("/show/remove").roles("admin")
+                .on(RequestMethod.POST)
+                .to(Admin.class).remove(param("username"));
+
         route()
                 .from("/admin").roles("admin")
                 .on(RequestMethod.GET)
@@ -169,19 +204,6 @@ public class Routes extends AbstractRoutingModule {
                 .on(RequestMethod.POST)
                 .produces(JSON, JSP)
                 .consumes(JSON, JSP)
-                .to(Admin.class).register(param(User.class), param("password"));
-        route()
-                .from("/show/{id}").roles("admin")
-                .on(RequestMethod.GET)
-                .to(Admin.class).show(param("id"));
-        route()
-                .from("/show/remove").roles("admin")
-                .on(RequestMethod.POST)
-                .to(Admin.class).remove(param("username"));
-        route()
-                .from("/html")
-                .on(RequestMethod.GET)
-                .produces(HTML)
-                .to(Html.class).index();
+                .to(Admin.class).register(param(User.class), param("password"));  */
     }
 }

@@ -15,16 +15,16 @@
  * limitations under the License.
  */
 
-package org.jboss.aerogear.controller.demo.config;
+package org.jboss.aerogear.jaxrs.demo.config;
 
 import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.PartitionManager;
 import org.picketlink.idm.RelationshipManager;
 import org.picketlink.idm.credential.Digest;
 import org.picketlink.idm.credential.Password;
-import org.picketlink.idm.model.sample.Role;
-import org.picketlink.idm.model.sample.SampleModel;
-import org.picketlink.idm.model.sample.User;
+import org.picketlink.idm.model.basic.BasicModel;
+import org.picketlink.idm.model.basic.Role;
+import org.picketlink.idm.model.basic.User;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -74,8 +74,8 @@ public class PicketLinkDefaultUsers {
     }
 
     private void grantRoles(User user, Role roleDeveloper, Role roleAdmin) {
-        SampleModel.grantRole(relationshipManager, user, roleDeveloper);
-        SampleModel.grantRole(relationshipManager, user, roleAdmin);
+        BasicModel.grantRole(relationshipManager, user, roleDeveloper);
+        BasicModel.grantRole(relationshipManager, user, roleAdmin);
     }
 
     private User newUser(String john, String email, String firstName, String lastName) {
