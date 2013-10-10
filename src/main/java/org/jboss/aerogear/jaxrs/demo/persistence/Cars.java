@@ -17,8 +17,6 @@
 package org.jboss.aerogear.jaxrs.demo.persistence;
 
 import org.jboss.aerogear.jaxrs.demo.model.Car;
-import org.jboss.aerogear.controller.router.rest.pagination.Paginated;
-import org.jboss.aerogear.controller.router.rest.pagination.PaginationInfo;
 import org.jboss.aerogear.jaxrs.demo.exception.CarNotFoundException;
 
 import javax.annotation.PreDestroy;
@@ -51,7 +49,7 @@ public class Cars {
     * used to expose the object is the class name in camel case. Ex: <pre>${car.brand}</pre>
     *
     * @return Car
-    * @see org.jboss.aerogear.jaxrs.demo.service.Routes
+    *
     */
     public Car save(final Car car) {
         final EntityManager em = emf.createEntityManager();
@@ -81,14 +79,15 @@ public class Cars {
         }
     }
     
-    @Paginated 
-    public List<Car> findCarsBy(final PaginationInfo paginationInfo, final String color) {
-        return getCars(paginationInfo.getOffset(), color, paginationInfo.getLimit());
+
+    public List<Car> findCarsBy( final String color) {
+        return null;
+        //return getCars(paginationInfo.getOffset(), color, paginationInfo.getLimit());
     }
-    
-    @Paginated (webLinking = false)
-    public List<Car> findCarsByCustomHeaders(final PaginationInfo paginationInfo, final String color) {
-        return getCars(paginationInfo.getOffset(), color, paginationInfo.getLimit());
+
+    public List<Car> findCarsByCustomHeaders(final String color) {
+        return null;
+        //return getCars(paginationInfo.getOffset(), color, paginationInfo.getLimit());
     }
     
     private List<Car> getCars(final int offset, final String color, final int limit) {

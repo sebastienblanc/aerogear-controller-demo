@@ -24,7 +24,7 @@
     <artifactId>aerogear-jaxrs-demo</artifactId>
     <version>1.2.1</version>
     <packaging>war</packaging>
-    <name>AeroGear Controller Demo</name>
+    <name>AeroGear jaxrs Demo</name>
 
     <url>http://aerogear.org</url>
 
@@ -54,7 +54,6 @@
         <javaee6.bom.version>1.0.0.Final</javaee6.bom.version>
 
         <!-- Define the version of AeroGear APIs we want to import -->
-        <aerogear.controller.version>1.0.1</aerogear.controller.version>
         <aerogear.otp.version>1.0.0</aerogear.otp.version>
         <aerogear.security.version>1.2.1</aerogear.security.version>
         <aerogear.security.picketlink.version>1.2.2</aerogear.security.picketlink.version>
@@ -101,13 +100,6 @@
     </dependencyManagement>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.jboss.aerogear</groupId>
-            <artifactId>aerogear-controller</artifactId>
-            <version>${aerogear.controller.version}</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>org.jboss.aerogear</groupId>
             <artifactId>aerogear-security</artifactId>

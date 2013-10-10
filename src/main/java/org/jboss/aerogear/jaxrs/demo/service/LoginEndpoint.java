@@ -1,13 +1,11 @@
 package org.jboss.aerogear.jaxrs.demo.service;
 
+import org.jboss.aerogear.jaxrs.demo.model.SimpleUser;
 import org.jboss.aerogear.security.auth.AuthenticationManager;
 import org.picketlink.idm.model.basic.User;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.logging.Logger;
 
@@ -23,9 +21,9 @@ public class LoginEndpoint {
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public User login(final User user, String password) {
-
-        authenticationManager.login(user, password);
+    public User login(SimpleUser simpleUser) {
+        User user = new User(simpleUser.getLoginName());
+        authenticationManager.login(user, simpleUser.getPassword());
         return user;
     }
 
