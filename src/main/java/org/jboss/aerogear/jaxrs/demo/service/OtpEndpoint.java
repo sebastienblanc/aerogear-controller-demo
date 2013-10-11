@@ -5,6 +5,7 @@ import org.jboss.aerogear.security.auth.Secret;
 import org.jboss.aerogear.security.otp.Totp;
 import org.picketlink.idm.model.basic.User;
 
+import javax.ejb.Stateless;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -15,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.logging.Logger;
 
+@Stateless
 @Path("/auth")
 public class OtpEndpoint {
 
@@ -32,7 +34,8 @@ public class OtpEndpoint {
     @Path("/otp/secret")
     @Produces(MediaType.APPLICATION_JSON)
     public String secret() {
-        return new Totp(secret.get()).uri(loggedInUserName.get());
+        String otpSecret =  new Totp(secret.get()).uri(loggedInUserName.get());
+        return otpSecret;
     }
 
     @POST

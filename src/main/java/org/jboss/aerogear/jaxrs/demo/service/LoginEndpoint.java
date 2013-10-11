@@ -21,10 +21,10 @@ public class LoginEndpoint {
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public User login(SimpleUser simpleUser) {
+    public SimpleUser login(SimpleUser simpleUser) {
         User user = new User(simpleUser.getLoginName());
         authenticationManager.login(user, simpleUser.getPassword());
-        return user;
+        return simpleUser;
     }
 
     @POST
