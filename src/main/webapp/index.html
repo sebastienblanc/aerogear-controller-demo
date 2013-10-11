@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="stylesheets/topcoat-desktop-light.min.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.qrcode.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/aerogear.js"></script>
+</head>
+<body>
+<div id="logindiv">
+    <h2>Login</h2>
+    <form name="login">
+        <label>loginName:</label>
+        <input type="text" name="loginName" class="topcoat-text-input--large" />
+        <label>password:</label>
+        <input autocomplete="off" type="password" name="password" class="topcoat-text-input--large" />
+        <input type="submit"/>
+
+    </form>
+</div>
+<div id="logoutdiv" style="display: none;">
+    <h2>Logout</h2>
+    <button class="topcoat-button" id="logout" >Logout</button>
+</div>
+<div id="otpdiv" style="display: none;">
+    <h2>Google authenticator</h2>
+    <hr />
+    <p><strong>Note:</strong> <em>If you have already scanned the QRCode, is not necessary to do it again</em></p>
+    <h5><a href="#" id="qrcode" >Give it a try!</a></h5>
+    <div id="qrcode-div" style="text-align: center"></div>
+    <form name="otp">
+        <label>OTP:</label>
+        <input autocomplete="off" type="password" name="secret" class="topcoat-text-input--large" />
+        <input type="submit"/>
+
+    </form>
+</div>
+
+<div id="otpgooddiv" style="display: none;">
+    <h2>Your are OTP logged in !</h2>
+</div>
+</body>
+</html>

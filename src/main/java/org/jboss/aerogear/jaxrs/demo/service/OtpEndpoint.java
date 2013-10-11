@@ -1,5 +1,6 @@
 package org.jboss.aerogear.jaxrs.demo.service;
 
+import org.jboss.aerogear.jaxrs.demo.model.SimpleUser;
 import org.jboss.aerogear.security.auth.LoggedUser;
 import org.jboss.aerogear.security.auth.Secret;
 import org.jboss.aerogear.security.otp.Totp;
@@ -33,23 +34,25 @@ public class OtpEndpoint {
     @GET
     @Path("/otp/secret")
     @Produces(MediaType.APPLICATION_JSON)
-    public String secret() {
-        String otpSecret =  new Totp(secret.get()).uri(loggedInUserName.get());
-        return otpSecret;
+    public SimpleUser secret() {
+       SimpleUser simpleUser = new SimpleUser();
+       String otpSecret =  new Totp(secret.get()).uri(loggedInUserName.get());
+       simpleUser.setUri(otpSecret);
+       return simpleUser;
     }
 
     @POST
     @Path("/otp")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public User otp(User user, String otp) {
+    public SimpleUser otp(SimpleUser simpleUser) {
 
         Totp totp = new Totp(secret.get());
-        boolean result = totp.verify(otp);
+        boolean result = totp.verify(simpleUser.getSecret());
 
         if (!result)
             throw new RuntimeException("Invalid OTP");
 
-        return user;
+        return simpleUser;
     }
 }

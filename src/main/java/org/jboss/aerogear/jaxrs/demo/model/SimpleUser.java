@@ -23,6 +23,10 @@ public class SimpleUser {
 
     private String password;
 
+    private String uri;
+
+    private String secret;
+
     public String getLoginName() {
         return loginName;
     }
@@ -38,4 +42,23 @@ public class SimpleUser {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+
+
 }
